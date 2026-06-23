@@ -391,7 +391,8 @@ body {
     transform-origin: top center;
     margin-bottom: -104px;
   }
-  .float-caption, .chip-top-right, .chip-bottom-left { display: none !important; }
+  .chip-top-right { top: 72px; right: -12px; }
+  .chip-bottom-left { bottom: 88px; left: -32px; }
 
   /* ── 네비게이션 ── */
   .top-nav { padding: 0; }
@@ -409,24 +410,37 @@ body {
   .admin-card-scroll-wrap {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 0 -20px;
+    width: 100vw;
+    margin-left: -20px;
     padding-left: 20px;
+    box-sizing: border-box;
     scrollbar-width: none;
   }
   .admin-card-scroll-wrap::-webkit-scrollbar { display: none; }
   .admin-card-scroll-wrap .admin-card {
-    min-width: 580px;
-    border-radius: 0;
+    min-width: 620px;
+    border-radius: var(--radius);
     margin: 0;
+    margin-right: 20px;
+    flex-shrink: 0;
   }
 
   /* ── desc-blocks ── */
   .desc-blocks { max-width: 100% !important; }
 
   /* ── 자막 위치 모달 ── */
-  .pos-modal { width: 100% !important; max-width: 100% !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; }
-  .pos-modal-body { flex-direction: column !important; }
-  .pos-phone-area { width: 100% !important; height: 300px !important; }
+  /* 자막 위치 모달: 웹 UI 그대로 축소 */
+  .pos-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.43);
+    transform-origin: center center;
+    width: 860px !important;
+    height: 620px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
 
   /* ── 플로팅 힌트 ── */
   .il-hint { bottom: 12px !important; right: 12px !important; font-size: 11px !important; max-width: 240px; }
@@ -835,7 +849,7 @@ body {
     <div style="margin-top:-36px;">
       <div class="sec-eyebrow" style="font-size:14px;">SHOPLIVE AI 자막 가이드</div>
       <h2 class="sec-h2" style="font-size:30px;">이제 샵라이브 AI 자막으로<br>소리 없이도 방송을 이해할 수 있어요</h2>
-      <p class="sec-lead" style="margin-bottom:0;">샵라이브 AI 자막은 라이브커머스 환경에 최적화된 음성 인식(STT) 기술을 기반으로 방송자의 음성을 실시간으로 자막으로 변환하여 제공합니다. 시청자는 소리를 켜지 않아도 방송 내용을 이해할 수 있으며, 다국어 자막을 통해 해외 시청자도 더욱 편리하게 콘텐츠를 시청할 수 있습니다. 관리자는 간단한 설정만으로 라이브 방송과 다시보기 콘텐츠에 AI 자막을 적용할 수 있습니다.</p>
+      <p class="sec-lead" style="margin-bottom:0;">샵라이브 AI 자막은 라이브커머스 환경에 최적화된 음성 인식(STT) 기술을 기반으로 방송자의 음성을 실시간으로 자막으로 변환하여 제공합니다. 시청자는 소리를 켜지 않아도 방송 내용을 이해할 수 있으며, 다국어 자막을 통해 해외 시청자도 더욱 편리하게 콘텐츠를 시청할 수 있습니다.</p>
     </div>
     <div class="phone-stage">
     <div class="phone-wrap">
@@ -1585,6 +1599,15 @@ window.addEventListener('scroll', () => {
   });
   navBtns.forEach(b=>b.classList.remove('active'));
   navBtns[active].classList.add('active');
+
+  // 스크롤 시 열려있는 드롭다운 닫기
+  const anyOpen = document.querySelector('.custom-dropdown.open');
+  if(anyOpen) {
+    document.querySelectorAll('.custom-dropdown').forEach(d=>d.classList.remove('open'));
+    document.querySelectorAll('.custom-select-btn').forEach(b=>b.classList.remove('open'));
+    document.removeEventListener('click', closeAllDd);
+    updateRtLangLabel();
+  }
 }, {passive:true});
 
 // Seg control
