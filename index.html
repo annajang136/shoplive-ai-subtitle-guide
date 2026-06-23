@@ -357,11 +357,79 @@ body {
 .reveal.in { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 768px) {
-  .page-section { padding: 48px 20px; }
-  .step-item { grid-template-columns: 1fr; gap: 28px; }
-  .top-nav { padding: 0 20px; }
-  .top-nav-tabs { gap: 0; }
-  .top-nav-tab { padding: 0 12px; font-size: 12px; }
+  /* ── 한국어 줄바꿈 방지 ── */
+  .sec-h2, .sec-lead, .step-h3, .step-p, .sec-eyebrow,
+  .desc-text, .admin-section-sub, .callout, .callout-info {
+    word-break: keep-all;
+  }
+
+  /* ── 레이아웃: page-section-inner만 패딩 ── */
+  .page-section { padding: 0; }
+  .page-section-inner { padding: 48px 20px; }
+
+  .intro-row {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .step-item {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  .step-item .phone-wrap,
+  .intro-row .phone-wrap { order: 1; margin: 0 auto; }
+  .step-item > *:not(.phone-wrap),
+  .intro-row > *:not(.phone-wrap) { order: 0; }
+
+  /* ── 타이포 ── */
+  .sec-h2, h2[style*="font-size"] { font-size: 24px !important; }
+  .sec-lead { max-width: 100% !important; }
+
+  /* ── 폰 목업 ── */
+  .phone-wrap {
+    width: 260px !important;
+    transform: scale(0.65);
+    transform-origin: top center;
+    margin-bottom: -104px;
+  }
+  .float-caption, .chip-top-right, .chip-bottom-left { display: none !important; }
+
+  /* ── 네비게이션 ── */
+  .top-nav { padding: 0; }
+  .top-nav-inner { flex-wrap: wrap; height: auto; padding: 16px 16px 0; gap: 0; }
+  .top-nav-divider, .top-nav-title { display: none; }
+  .top-nav-tabs {
+    position: static; transform: none; width: 100%; gap: 0;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; flex-wrap: nowrap; margin-top: 4px;
+  }
+  .top-nav-tabs::-webkit-scrollbar { display: none; }
+  .top-nav-tab { padding: 8px 12px; font-size: 13px; white-space: nowrap; flex-shrink: 0; }
+
+  /* ── 어드민 카드만 가로 스크롤 ── */
+  .admin-card-scroll-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -20px;
+    padding-left: 20px;
+    scrollbar-width: none;
+  }
+  .admin-card-scroll-wrap::-webkit-scrollbar { display: none; }
+  .admin-card-scroll-wrap .admin-card {
+    min-width: 580px;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  /* ── desc-blocks ── */
+  .desc-blocks { max-width: 100% !important; }
+
+  /* ── 자막 위치 모달 ── */
+  .pos-modal { width: 100% !important; max-width: 100% !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; }
+  .pos-modal-body { flex-direction: column !important; }
+  .pos-phone-area { width: 100% !important; height: 300px !important; }
+
+  /* ── 플로팅 힌트 ── */
+  .il-hint { bottom: 12px !important; right: 12px !important; font-size: 11px !important; max-width: 240px; }
 }
 
 /* ── Admin Section CSS ── */
@@ -2212,6 +2280,16 @@ function initDrag() {
     update();
   }, { threshold: 0.05 }).observe(section);
 })();
+
+// 모바일: 어드민 카드 가로 스크롤 래퍼
+if (window.innerWidth <= 768) {
+  document.querySelectorAll('.admin-card').forEach(card => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'admin-card-scroll-wrap';
+    card.parentNode.insertBefore(wrapper, card);
+    wrapper.appendChild(card);
+  });
+}
 </script>
 </body>
 </html>
