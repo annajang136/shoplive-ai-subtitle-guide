@@ -45,6 +45,7 @@ body {
   position: sticky; top: 0; z-index: 200;
   background: #fff;
   border-bottom: 1px solid var(--border);
+  isolation: isolate;
 }
 .top-nav-inner {
   max-width: calc(var(--max-w) + 80px);
@@ -408,7 +409,7 @@ body {
 .admin-section { margin-bottom: 36px; }
 .admin-section-hd { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .admin-section-title { font-size: 19px; font-weight: 700; color: var(--text); }
-.admin-section-sub { font-size: 13px; font-weight: 500; color: var(--text-2); margin-bottom: 14px; line-height: 1.8; }
+.admin-section-sub { font-size: 14px; font-weight: 500; color: var(--text-2); margin-bottom: 14px; line-height: 1.8; }
 
 /* ── 어드민 카드 ── */
 .admin-card {
@@ -1132,7 +1133,7 @@ body {
 
 
 <p class="interact-hint">
-  <span class="il-dot-demo"></span>강조된 영역을 직접 클릭해서 이용해보세요
+  <span class="il-dot-demo"></span>강조된 영역을 클릭해서 이용해보세요
 </p>
 
 <div class="admin-break"></div>
@@ -1210,7 +1211,7 @@ body {
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
         <div style="flex:1;min-width:180px;">
           <div class="admin-label">자막 공개 여부</div>
-          <div class="seg-desc" id="rt-vis-desc">플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화하여 사용</div>
+          <div class="seg-desc" id="rt-vis-desc">플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin-top:2px;">
           <div class="beacon-wrap">
@@ -1289,7 +1290,7 @@ body {
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap;">
         <div style="flex:1;min-width:180px;">
           <div class="admin-label">리플레이 자막 공개 여부</div>
-          <div class="seg-desc" id="rp-vis-desc">다시보기 플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화하여 사용</div>
+          <div class="seg-desc" id="rp-vis-desc">다시보기 플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화</div>
         </div>
         <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;margin-top:2px;">
           <div class="beacon-wrap">
@@ -1867,14 +1868,14 @@ updateRtLangDd();
 function segRt(idx) {
   document.getElementById('rt-all-btn').classList.toggle('active', idx===0);
   document.getElementById('rt-admin-btn').classList.toggle('active', idx===1);
-  const descs = ['플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화하여 사용','플레이어에는 표시되지 않고 우측 상단 관리자 미리보기에서만 확인 가능'];
+  const descs = ['플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화','플레이어에는 표시되지 않고 우측 상단 관리자 미리보기에서만 확인 가능'];
   document.getElementById('rt-vis-desc').textContent = descs[idx];
   document.getElementById('rt-preview-btn').disabled = (idx === 0);
 }
 function segRpVis(idx) {
   document.getElementById('rp-all-btn').classList.toggle('active', idx===0);
   document.getElementById('rp-admin-btn').classList.toggle('active', idx===1);
-  const descs = ['다시보기 플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화하여 사용','시청자에게는 표시되지 않고 관리자 미리보기에서만 자막 확인 가능'];
+  const descs = ['다시보기 플레이어에 자막(CC) 버튼이 노출되며, 시청자가 필요 시 직접 자막을 활성화','시청자에게는 표시되지 않고 관리자 미리보기에서만 자막 확인 가능'];
   document.getElementById('rp-vis-desc').textContent = descs[idx];
   document.getElementById('rp-preview-btn').disabled = (idx === 0);
 }
@@ -2185,7 +2186,7 @@ function initDrag() {
 
 <!-- 플로팅 힌트 뱃지 -->
 <div class="interact-float" id="interact-float">
-  <span class="il-dot-demo"></span>강조된 영역을 직접 클릭해서 이용해보세요
+  <span class="il-dot-demo"></span>강조된 영역을 클릭해서 이용해보세요
 </div>
 
 <script>
